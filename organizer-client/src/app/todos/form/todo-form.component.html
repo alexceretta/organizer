@@ -1,0 +1,115 @@
+<mat-list-item *ngIf="isNew">
+  <form *ngIf="isEditing" #newForm="ngForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Task Description"
+        [(ngModel)]="toDo.description"
+        name="description"
+        required
+        maxlength="50"
+      />
+    </mat-form-field>
+    <div class="task-actions">
+      <button
+        [disabled]="!newForm.form.valid"
+        mat-icon-button
+        color="primary"
+        aria-label="Confirm Task Creation"
+        matTooltip="Create Task"
+        (click)="createToDo()"
+      >
+        <mat-icon>check_circle</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        aria-label="Cancel Task Creation"
+        matTooltip="Cancel New Task"
+        (click)="toggleEdition()"
+      >
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </form>
+  <div class="task-actions">
+    <button
+      *ngIf="!isEditing"
+      mat-icon-button
+      color="accent"
+      aria-label="Add Task"
+      matTooltip="Add New Task"
+      (click)="newToDo()"
+    >
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+</mat-list-item>
+<mat-list-item *ngIf="!isNew">
+  <mat-checkbox
+    name="{{ toDo.id }}"
+    [checked]="toDo.completed"
+    *ngIf="!isEditing"
+    (change)="toggleStatus($event)"
+    >{{ toDo.description }}</mat-checkbox
+  >
+  <form *ngIf="isEditing" #toDoForm="ngForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Task Description"
+        [(ngModel)]="toDo.description"
+        name="description"
+        required
+        maxlength="50"
+      />
+      <mat-error *ngIf="toDo.description.required"
+        >Description is required</mat-error
+      >
+    </mat-form-field>
+    <div class="task-actions">
+      <button
+        [disabled]="!toDoForm.form.valid"
+        mat-icon-button
+        color="primary"
+        aria-label="Confirm Task Update"
+        matTooltip="Update Task"
+        (click)="updateToDo()"
+      >
+        <mat-icon>check_circle</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        aria-label="Cancel Task Creation"
+        matTooltip="Cancel New Task"
+        (click)="toggleEdition()"
+      >
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </form>
+  <div class="task-actions">
+    <button
+      mat-icon-button
+      color="primary"
+      aria-label="Edit Task"
+      matTooltip="Edit Task"
+      (click)="editToDo()"
+      *ngIf="!isEditing"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="warn"
+      aria-label="Delete Task"
+      matTooltip="Delete Task"
+      (click)="deleteToDo()"
+      *ngIf="!isEditing"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+</mat-list-item>

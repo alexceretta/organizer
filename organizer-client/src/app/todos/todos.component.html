@@ -1,0 +1,9 @@
+<mat-list>
+  <app-todo-form
+    *ngFor="let toDo of toDos"
+    [currentToDo]="toDo"
+    (changeToDoList)="refreshList($event)"
+  ></app-todo-form>
+  <mat-divider></mat-divider>
+  <app-todo-form (changeToDoList)="refreshList()"></app-todo-form>
+</mat-list>
